@@ -2,24 +2,22 @@ import UserModel from '../models/user'
 import { IUser } from '../types'
 
 class UserService {
-
-  async findOne(username: string) {
+  async findOne (username: string) {
     return await UserModel.findOne({ username })
   }
 
-  async create(user: IUser) {
-    let u = new UserModel(user)
+  async create (user: IUser) {
+    const u = new UserModel(user)
     return u.save()
   }
 
-  async remove(user_id: Number) {
+  async remove (user_id: Number) {
     return await UserModel.findOneAndDelete({ user_id })
   }
 
-  async get() {
+  async get () {
     return await UserModel.find({})
   }
-
 }
 
 // 单例模式，为了在control使用多个services的时候好区分

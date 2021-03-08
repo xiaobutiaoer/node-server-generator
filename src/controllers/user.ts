@@ -4,17 +4,14 @@ import userService from '../services/user'
 import { createValidation } from '../validates/user'
 
 class UserController {
-
   userService: any
 
-  init() {
-
+  init () {
     this.userService = userService()
     const router = Router()
     router.post('/', bodyParser.urlencoded({ extended: false }), this.post)
     // router.get('/', this.get)
     return router
-
   }
 
   post = async (req: Request, res: Response) => {
@@ -38,9 +35,7 @@ class UserController {
   //   const list = await this.userService.get({ ...req.query })
   //   res.send({ success: true, data: list })
   // }
-
 }
-
 
 const initUserController = async () => {
   const c = new UserController()

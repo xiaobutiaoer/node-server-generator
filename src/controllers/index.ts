@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import userController from './user'
 
-module.exports = async function initControllers() {
+module.exports = async function initControllers () {
   const router = Router()
   router.use('/user', await userController())
   router.use('*', (req, res) => {
