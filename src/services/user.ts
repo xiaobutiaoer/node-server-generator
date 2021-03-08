@@ -3,8 +3,8 @@ import { IUser } from '../types'
 
 class UserService {
 
-  async findOne(user: IUser) {
-    return await UserModel.findOne({ username: user.username })
+  async findOne(username: string) {
+    return await UserModel.findOne({ username })
   }
 
   async create(user: IUser) {
@@ -22,16 +22,11 @@ class UserService {
 
 }
 
-
-
-// 单例模式
-const userService = async function () {
+// 单例模式，为了在control使用多个services的时候好区分
+export default () => {
   let service: any
   if (!service) {
     service = new UserService()
   }
   return service
 }
-
-
-export default userService

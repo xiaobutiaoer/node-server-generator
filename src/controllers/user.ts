@@ -1,14 +1,15 @@
 import { Router, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import userService from '../services/user'
+import { createValidation } from '../validates/user'
 
 class UserController {
 
   userService: any
 
-  async init() {
+  init() {
 
-    this.userService = await userService()
+    this.userService = userService()
     const router = Router()
     router.post('/', bodyParser.urlencoded({ extended: false }), this.post)
     // router.get('/', this.get)
@@ -17,17 +18,20 @@ class UserController {
   }
 
   post = async (req: Request, res: Response) => {
-    const user = await this.userService.create(Object.assign({}, req.body, {
-      password: req.body.password
-    }))
-    console.log(Object.assign({}, req.body, {
-      password: req.body.password
-    }))
-    res.send({
-      code: res.statusCode,
-      message: '注册成功',
-      data: user
-    })
+    try {
+      await createValidation.validate(req.body)
+    } catch (e) {
+      res.status(400).send({ code: res.statusCode, message: e.message })
+    }
+
+    // const user = await this.userService.create(Object.assign({}, req.body, {
+    //   password: req.body.password
+    // }))
+    // res.send({
+    //   code: res.statusCode,
+    //   message: '注册成功',
+    //   data: user
+    // })
   }
 
   // get = async (req: Request, res: Response) => {
