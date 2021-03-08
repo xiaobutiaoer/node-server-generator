@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import userService from '../services/user'
 
@@ -9,26 +9,31 @@ class UserController {
   async init() {
 
     this.userService = await userService()
-
     const router = Router()
     router.post('/', bodyParser.urlencoded({ extended: false }), this.post)
-    router.delete('/:user_id', this.delete)
-    router.get('/', this.get)
+    // router.get('/', this.get)
     return router
 
   }
 
-  post = function () {
-
+  post = async (req: Request, res: Response) => {
+    const user = await this.userService.create(Object.assign({}, req.body, {
+      password: req.body.password
+    }))
+    console.log(Object.assign({}, req.body, {
+      password: req.body.password
+    }))
+    res.send({
+      code: res.statusCode,
+      message: '注册成功',
+      data: user
+    })
   }
 
-  delete = function () {
-
-  }
-
-  get = () => {
-
-  }
+  // get = async (req: Request, res: Response) => {
+  //   const list = await this.userService.get({ ...req.query })
+  //   res.send({ success: true, data: list })
+  // }
 
 }
 
