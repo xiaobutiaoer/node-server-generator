@@ -2,21 +2,21 @@ import UserModel from '../models/user'
 import { IUser } from '../types'
 
 class UserService {
-  async findOne (username: string) {
-    return await UserModel.findOne({ username })
-  }
-
   async create (user: IUser) {
     const u = new UserModel(user)
     return u.save()
   }
 
-  async remove (user_id: Number) {
+  async delete (user_id: Number) {
     return await UserModel.findOneAndDelete({ user_id })
   }
 
-  async get () {
-    return await UserModel.find({})
+  async update (username: string) {
+    return await UserModel.findOne({ username })
+  }
+
+  async find (username: string) {
+    return await UserModel.findOne({ username })
   }
 }
 

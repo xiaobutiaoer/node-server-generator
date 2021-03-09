@@ -1,19 +1,21 @@
 import express from 'express'
-import { resolve } from 'path'
+// import { resolve } from 'path'
 import { promisify } from 'util'
 import connect from './connect'
+import initMiddlewares from './middlewares'
 
 const initControllers = require('./controllers')
 
 const server = express()
 const port = parseInt(process.env.PORT || '9000')
-const publicDir = resolve('public')
+// const publicDir = resolve('public')
 
 async function bootstrap () {
   // 静态服务
-  server.use(express.static(publicDir))
+  // server.use(express.static(publicDir))
 
   // 初始化中间件
+  server.use(await initMiddlewares())
 
   // 初始化路由
   server.use(await initControllers())

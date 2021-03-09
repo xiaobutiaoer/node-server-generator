@@ -10,7 +10,7 @@ class UserController {
     this.userService = userService()
     const router = Router()
     router.post('/', bodyParser.urlencoded({ extended: false }), this.post)
-    // router.get('/', this.get)
+    router.get('/', this.get)
     return router
   }
 
@@ -31,10 +31,10 @@ class UserController {
     // })
   }
 
-  // get = async (req: Request, res: Response) => {
-  //   const list = await this.userService.get({ ...req.query })
-  //   res.send({ success: true, data: list })
-  // }
+  get = async (req: Request, res: Response) => {
+    // const list = await this.userService.find({ ...req.query })
+    res.send({ success: true, data: [] })
+  }
 }
 
 const initUserController = async () => {
