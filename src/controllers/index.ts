@@ -1,9 +1,11 @@
 import { Router } from 'express'
 import userController from './user'
+import chaosController from './chaos'
 
-module.exports = async function initControllers () {
+export default async () => {
   const router = Router()
   router.use('/user', await userController())
+  router.use('/chaos', await chaosController())
   router.use('*', (req, res) => {
     res.status(404).send('Sorry, It seems like you lost yourself >_< !')
   })

@@ -37,9 +37,7 @@ class UserController {
   }
 }
 
-const initUserController = async () => {
+export default async () => {
   const c = new UserController()
   return c.init()
 }
-
-export default initUserController

@@ -16,6 +16,8 @@
     ],
     "rules": {
       "camelcase": 0,
-      "node/no-deprecated-api": 0
+      "node/no-deprecated-api": 0,
+      "promise/param-names": 0,
+      "semi": 0
     }
 }
